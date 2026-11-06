@@ -20,15 +20,21 @@ auto main(int argc, char** argv) -> int
     doSomethingPtr(&bar);
     fmt::print("The value of bar after doSomethingPtr is: {}\n", bar);
 
-    int* returnedPtr = doReturnAPtr();
-    fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
+    // int* returnedPtr = doReturnAPtr();
+    // fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
     doSomething(42);
-    fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
+    // fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
 
     doSomethingStatic();
     doSomethingStatic();
     doSomethingStatic();
     doSomethingStatic();
+
+    /* Teil 2: static auf Modulebene */
+    printModuleVariables();
+    incrementModuleCounter();
+    incrementModuleCounter();
+    printModuleVariables();
 
     fmt::print("Value of foo {} address of foo {}\n", foo, fmt::ptr(&foo));
     fmt::print("Value of foo2 {} address of foo2 {}\n", foo2, fmt::ptr(&foo2));

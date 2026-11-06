@@ -19,6 +19,10 @@ int* doReturnAPtr();
 
 void doSomethingStatic();
 
+/* Teil 2: Zugriff auf die module-lokalen Variablen nur ueber Funktionen */
+void incrementModuleCounter();
+void printModuleVariables();
+ 
 
 
 #endif

@@ -17,8 +17,29 @@ const int rodata2 = 43;
 
 const int big_data_blob[] = {42,0xff};
 
-void doSomething(int value)
+/*
+ * Teil 2: module-lokale Variablen (internal linkage)
+ * Durch "static" sind diese Variablen NUR in dieser Datei (module.cpp) sichtbar.
+ * Sie werden bewusst NICHT in module.h deklariert.
+ */
+static int moduleCounter;          /* ohne Initialisierung -> .bss  */
+static int moduleValue = 123;      /* mit Initialisierung   -> .data */
+static const int moduleConst = 77; /* konstant              -> .rodata */
+
+void incrementModuleCounter()
 {
+    moduleCounter = moduleCounter + 1;
+}
+
+void printModuleVariables()
+{
+    fmt::print("moduleCounter, value {}, address {}\n", moduleCounter, fmt::ptr(&moduleCounter));
+    fmt::print("moduleValue,   value {}, address {}\n", moduleValue, fmt::ptr(&moduleValue));
+    fmt::print("moduleConst,   value {}, address {}\n", moduleConst, fmt::ptr(&moduleConst));
+}
+
+void doSomething(int value)
+{ 
     value = value + 1;
     fmt::print("doSomething, value {}\n", value);
 }
@@ -44,5 +65,11 @@ void doSomethingStatic()
 {
     static int value = 56;
     value = value + 1;
-    fmt::print("doSomethingStatic, value {}\n", value);
+    fmt::print("doSomethingStatic, value {}, address {}\n", value, fmt::ptr(&value));
+
+    /* Vergleich: normale (nicht-statische) lokale Variable auf dem Stack */
+    int normal = 56;
+    normal = normal + 1;
+    fmt::print("  normal,           value {}, address {}\n", normal, fmt::ptr(&normal));
 }
+ 
